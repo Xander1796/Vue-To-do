@@ -9,7 +9,12 @@ let hideChecked = ref("false");
 
 onMounted(() => {
   if (localStorage?.getItem("todos")) {
-    todos.value = JSON.parse(localStorage.getItem("todos"));
+    const localStorageTodos = JSON.parse(localStorage.getItem("todos"));
+    todos.value = localStorageTodos;
+
+    if (localStorageTodos.length > 0) {
+      todoId = Math.max(...localStorageTodos.map((item) => item.id)) + 1;
+    }
   } else {
     localStorage.setItem("todos", []);
   }
