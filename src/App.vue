@@ -1,11 +1,23 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 
 let newTodo = ref("");
 let todoId = 1;
 
 let todos = ref([]);
 let hideChecked = ref("false");
+
+onMounted(() => {
+  if (localStorage?.getItem("todos")) {
+    todos.value = JSON.parse(localStorage.getItem("todos"));
+  } else {
+    localStorage.setItem("todos", []);
+  }
+});
+
+const updateLocalStorage = () => {
+  localStorage.setItem("todos", JSON.stringify(todos.value));
+};
 
 const visibleTodos = computed(() => {
   return hideChecked.value
@@ -15,17 +27,22 @@ const visibleTodos = computed(() => {
 
 const addTodo = () => {
   if (!newTodo.value.trim()) return;
-
   todos.value.push({ id: todoId++, content: newTodo.value, isChecked: false });
   newTodo.value = "";
+
+  updateLocalStorage();
 };
 
 const deleteTodo = (todo) => {
   todos.value = todos.value.filter((item) => item.id !== todo.id);
+
+  updateLocalStorage();
 };
 
 const deleteCompletedTodos = () => {
   todos.value = todos.value.filter((item) => !item.isChecked);
+
+  updateLocalStorage();
 };
 </script>
 
