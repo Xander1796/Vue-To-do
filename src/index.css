@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply flex items-center gap-[5px] text-white text-[17px] font-semibold p-[12px] rounded-[5px] border-0 cursor-pointer;
+  }
+  #app {
+    @apply flex flex-col items-center gap-[2rem] w-full p-[20px] mx-[auto] my-[20px] md:w-[50rem] md:p-0;
+  }
+}
