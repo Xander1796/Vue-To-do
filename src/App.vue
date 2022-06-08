@@ -14,6 +14,15 @@ import Home from "./components/views/Home.vue";
   box-sizing: border-box;
 }
 
+body {
+  width: 100%;
+  height: 100%;
+}
+
+.dark body {
+  background: #475569;
+}
+
 svg {
   width: 1em;
   height: 1em;
